@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>CSAPP 读书笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="CSAPP 读书笔记"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2014-02-26T10:21+0800"/>
+<meta name="author" content="kirchhoff"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">CSAPP 读书笔记</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 第二章 信息的处理和表示</a>
+<ul>
+<li><a href="#sec-1-1">1.1 C语言中的位级表示</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1 交换两个值</a></li>
+<li><a href="#sec-1-1-2">1.1.2 习题2.12</a></li>
+<li><a href="#sec-1-1-3">1.1.3 习题2.13</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2 C语言中的移位运算</a></li>
+<li><a href="#sec-1-3">1.3 整数表示</a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1 有符号数和无符号数之间的转换</a></li>
+<li><a href="#sec-1-3-2">1.3.2 习题2.21</a></li>
+<li><a href="#sec-1-3-3">1.3.3 扩展一个数字的位表示</a></li>
+<li><a href="#sec-1-3-4">1.3.4 习题2.27</a></li>
+<li><a href="#sec-1-3-5">1.3.5 习题2.30</a></li>
+<li><a href="#sec-1-3-6">1.3.6 习题2.32</a></li>
+<li><a href="#sec-1-3-7">1.3.7 补码非的位级表示</a></li>
+<li><a href="#sec-1-3-8">1.3.8 习题2.34</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 第二章 信息的处理和表示</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> C语言中的位级表示</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> 交换两个值</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+
+
+
+<pre class="example">void inplace_swap(int *x,int *y)
+{
+     *x = *x ^ *y;
+     *y = *x ^ *y;
+     *x = *x ^ *y;
+}
+</pre>
+
+<p>
+这种交换方式并没有性能上的优势，仅仅是个智力游戏
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup><colgroup><col class="left" /></colgroup>
+<thead>
+<tr><th scope="col" class="left">步骤</th><th scope="col" class="left">*x</th><th scope="col" class="left">*y</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">初始</td><td class="left">a</td><td class="left">b</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">第一步</td><td class="left">a</td><td class="left">a^b</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">第二步</td><td class="left">b</td><td class="left">a^b</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">第三步</td><td class="left">b</td><td class="left">a</td></tr>
+</tbody>
+</table>
+
+
+<p>
+<span style="text-decoration:underline;">网络资料</span> ：异或运算的作用
+</p><ol>
+<li>0异或任何数=任何数
+</li>
+<li>1异或任何数－任何数取反
+</li>
+<li>任何数异或自己＝把自己置0
+</li>
+</ol>
+
+
+<p>
+按位异或的几个常见用途:
+</p><ul>
+<li>使某些特定的位翻转
+  例如对数10100001的第2位和第3位翻转，则可以将该数与00000110进行按位异或运算。
+</li>
+</ul>
+
+<p>　　　　　  10100001^00000110 = 10100111
+</p><ul>
+<li>在汇编语言中经常用于将变量置零：
+  xor a，a
+</li>
+<li>快速判断两个值是否相等
+  举例1: 判断两个整数a，b是否相等，则可通过下列语句实现：
+        return ((a ^ b) == 0)
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> 习题2.12</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">x的最低有效字节，其他位置均置为0</th><th scope="col" class="left">x=0xFF&amp;x</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">除了x的最低有效字节外，其他的位都取补，最低有效字节保持不变</td><td class="left">x=x^~0xFF</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">x的最低有效字节设置成全1，其他字节都保持不变</td><td class="left">x=0xFFx</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> 习题2.13</h4>
+<div class="outline-text-4" id="text-1-1-3">
+
+<p>设bic(x,m)为在m为1的每个位置，将x对应的位设置为0,则bic(x,m) == x&amp;~m
+</p>
+<p>
+x^y=(x&amp;~y)|(~x&amp;y)
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> C语言中的移位运算</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<dl>
+<dt>逻辑右移</dt><dd>在左端补k个0
+</dd>
+<dt>算术右移</dt><dd>在左端补k个最高有效位的值
+</dd>
+<dt>移动k位，这里k很大</dt><dd>C语言标准很小心地规避了说明在这种情况下该如何做。实际上位移量就是通过计算k mod w得到的，例如w=32,即32位机，右移36位即4位，左移32位即0位，右移40位即8位
+</dd>
+</dl>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 整数表示</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<p>补码的范围是不对称的：|TMin|=|TMax|+1,也就是说TMin没有与之对应的正数。之所有有这样的不对称性，是因为一半
+的位模式(符号位设置为1的数)表示负数，而一半的数(符号位设置为0的数)表示非负数。因为0是非负数，也就意味着能表示的正数比
+负数少一个。第二，最大的无符号数值刚好比补码的最大值的两倍大一点：UMax<sub>w</sub>=2TMax<sub>w</sub>+1。补码表示中所有表示负数的位模式在无
+符号表示中都变成了正数。注意-1和UMax有同样的为表示——一个全1的串。数值0在两种表示中都是全0的串。
+</p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="right" /></colgroup>
+<thead>
+<tr><th scope="col" class="left">数</th><th scope="col" class="right">字长8</th></tr>
+</thead>
+<tbody>
+</tbody>
+<tbody>
+<tr><td class="left">UMax<sub>w</sub></td><td class="right">0xFF</td></tr>
+<tr><td class="left"></td><td class="right">255</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">TMin<sub>w</sub></td><td class="right">0x80</td></tr>
+<tr><td class="left"></td><td class="right">-128</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">TMax<sub>w</sub></td><td class="right">0x7F</td></tr>
+<tr><td class="left"></td><td class="right">127</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-1</td><td class="right">0xFF</td></tr>
+<tr><td class="left">0</td><td class="right">0x00</td></tr>
+</tbody>
+</table>
+
+C库中的文件&lt;limits.h&gt;定义了一组常量，来限定编译器运行这台机器的不同整型数据类型的取值范围。比如，它定义了常量INT_MAX、INT_MIN和UINT_MAX,它们描述了有符号和无符号整数的范围。
+ISO C99标准在文件stdint.h中引入了另一类整数类型。这个文件定义了一组数据类型，它们的声明形如intN_t和uintN_t，指定的是N位有符号和无符号整数。N的具体值与实现相关，但是大多数编译器允许的值为8，16，32和64。
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> 有符号数和无符号数之间的转换</h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+<p>强制类型转换的结果保持位值不变，知识改变了解释这些位的方式。-12345的16位补码表示与53191的16位无符号表示是完全一样的。
+</p>
+<p>
+在C语言中，当执行一个运算时，如果它的一个运算数是有符号的而另一个是无符号的，那么C语言会隐式地将有符号参数强制转换为无符号数，并假设这两个数都是非负的，来执行这个运算。
+</p>
+<p>
+这种方法对于标准的算术运算来说并无多大差异，但是对于像&lt;和&gt;这样的关系运算符来说，会导致非直观的结果。
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="right" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">表达式</th><th scope="col" class="left">类型</th><th scope="col" class="right">求值</th></tr>
+</thead>
+<tbody>
+</tbody>
+<tbody>
+<tr><td class="left">0 == 0U</td><td class="left">无符号</td><td class="right">1</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-1 &lt; 0</td><td class="left">有符号</td><td class="right">1</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-1 &lt; 0U</td><td class="left">无符号</td><td class="right">0*</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">2147483647 &gt; -2147483647-1</td><td class="left">有符号</td><td class="right">1</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">2147483647U &gt; -2147483647-1</td><td class="left">无符号</td><td class="right">0*</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">2147483647 &gt; (int) 2147483648U</td><td class="left">有符号</td><td class="right">1*</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-1 &gt; -2</td><td class="left">有符号</td><td class="right">1</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">(unsigned) -1 &gt; 2</td><td class="left">无符号</td><td class="right">1</td></tr>
+</tbody>
+</table>
+
+注：非直观的情况标注了"*"
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> 习题2.21</h4>
+<div class="outline-text-4" id="text-1-3-2">
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">表达式</th><th scope="col" class="left">类型</th><th scope="col" class="left">求值</th></tr>
+</thead>
+<tbody>
+</tbody>
+<tbody>
+<tr><td class="left">-2147483647-1 == 2147483648U</td><td class="left">无</td><td class="left">1*</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-2147483647-1 &lt; 2147483647</td><td class="left">有</td><td class="left">1</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-2147483647-1U &lt; 2147483647</td><td class="left">无</td><td class="left">0*</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-2147483647-1 &lt; -2147483647</td><td class="left">有</td><td class="left">1</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">-2147483647-1U &lt; -2147483647</td><td class="left">无</td><td class="left">0*</td></tr>
+</tbody>
+</table>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> 扩展一个数字的位表示</h4>
+<div class="outline-text-4" id="text-1-3-3">
+
+<p>    将一个无符号数转换为一个更大的数据类型，我们只需要在表示的开头添加0，这种运算称为 <code>零扩展</code> 。将一个补码数字转换为一个更大的数据类型可以执行 <code>符号扩展</code> ,规则是在表示中添加最高的有效位的值的副本。
+设short x=-12345,把short转换为unsigned时，我们先要改变大小，之后再完成从有符号到无符号的转换，也就是说(unsigned)x等价于(unsigned)(int)sx,求值得到4294954951,而不等价于(unsigned)(unsigned short)x,后者求值得到53191。事实上，这个规则是C语言标准要求的。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4"><span class="section-number-4">1.3.4</span> 习题2.27</h4>
+<div class="outline-text-4" id="text-1-3-4">
+
+<p>这个函数是对确定无符号加法是否溢出的规则的直接实现。如果参数x和y相加不会产生溢出，这个函数就返回1。
+</p>
+
+
+<pre class="example">int uadd_ok(unsigned x,unsigned y)
+{
+    unsigned sum = x+y;
+    return sum &gt;= x;
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5"><span class="section-number-4">1.3.5</span> 习题2.30</h4>
+<div class="outline-text-4" id="text-1-3-5">
+
+<p>这个函数是对确定补码加法是否溢出的规则的直接实现
+</p>
+
+
+<pre class="example">int tadd_ok(int x,int y)
+{
+    int sum = x+y;
+    int neg_over = x &lt; 0 &amp;&amp; y &lt;0 &amp;&amp; sum &gt;= 0;
+    int pos_over = x &gt;= 0 &amp;&amp; y&gt;= 0 &amp;&amp; sum &lt; 0;
+    return !neg_over &amp;&amp; !pos_over;
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-6" class="outline-4">
+<h4 id="sec-1-3-6"><span class="section-number-4">1.3.6</span> 习题2.32</h4>
+<div class="outline-text-4" id="text-1-3-6">
+
+<p>补码减法溢出
+</p>
+
+
+<pre class="example">int tsub_ok(int x,int y)
+{
+    int sub = x - y;
+    return (x &gt;= y)?(sub &gt;= 0):(sub &lt; 0);
+}
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-7" class="outline-4">
+<h4 id="sec-1-3-7"><span class="section-number-4">1.3.7</span> 补码非的位级表示</h4>
+<div class="outline-text-4" id="text-1-3-7">
+
+<p>对每一位求补，再对结果+1，在C语言中，我们可以确定对于任意整数值x，计算表达式-x和~x+1得到的结果完全一样。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-3-8" class="outline-4">
+<h4 id="sec-1-3-8"><span class="section-number-4">1.3.8</span> 习题2.34</h4>
+<div class="outline-text-4" id="text-1-3-8">
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" /></colgroup>
+<colgroup><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">模式</th><th scope="col" class="left">x</th><th scope="col" class="left">y</th><th scope="col" class="left">x*y</th><th scope="col" class="left">截断的x*y</th></tr>
+</thead>
+<tbody>
+</tbody>
+<tbody>
+<tr><td class="left">无符号数</td><td class="left">4  100</td><td class="left">5  101</td><td class="left">20  010100</td><td class="left">4  100</td></tr>
+<tr><td class="left">补码</td><td class="left">-4  100</td><td class="left">-3  101</td><td class="left">12  001100</td><td class="left">-4  100</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">无符号数</td><td class="left">2  010</td><td class="left">7  111</td><td class="left">14  001110</td><td class="left">6  110</td></tr>
+<tr><td class="left">补码</td><td class="left">2  010</td><td class="left">-1  111</td><td class="left">12  111110</td><td class="left">-2  110</td></tr>
+</tbody>
+<tbody>
+<tr><td class="left">无符号数</td><td class="left">2  010</td><td class="left">7  111</td><td class="left">14  001110</td><td class="left">6  110</td></tr>
+<tr><td class="left">补码</td><td class="left">2  010</td><td class="left">-1  111</td><td class="left">12  111110</td><td class="left">-2  110</td></tr>
+</tbody>
+</table>
+
+我们可以看出，w位数字上的无符号运算和补码运算是同构的&mdash;&mdash;加减乘在位级上有相同的结果。
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2014-02-26T10:21+0800</p>
+<p class="author">Author: kirchhoff</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
